@@ -1,0 +1,40 @@
+<app-admin-navbar></app-admin-navbar>
+
+<div class="dashboard">
+  <h1>📊 Admin Dashboard</h1>
+
+  <div class="cards">
+    <div class="stat-card">
+      <h2>🎬 Movies</h2>
+      <p>4 Active</p>
+    </div>
+    <div class="stat-card">
+      <h2>🏢 Theaters</h2>
+      <p>5 Registered</p>
+    </div>
+    <div class="stat-card">
+      <h2>👥 Users</h2>
+      <p>4 Members</p>
+    </div>
+  </div>
+
+  <div class="charts">
+    <div class="chart-card">
+      <h3>Monthly Bookings</h3>
+      <canvas baseChart
+              [data]="{ labels: barChartLabels, datasets: barChartData }"
+              [options]="barChartOptions"
+              chartType="bar">
+      </canvas>
+    </div>
+
+    <div class="chart-card">
+      <h3>System Overview</h3>
+      <canvas baseChart
+              [data]="{ labels: pieChartLabels, datasets: [{ data: pieChartData }] }"
+              [options]="pieChartOptions"
+              chartType="pie">
+      </canvas>
+    </div>
+  </div>
+</div>

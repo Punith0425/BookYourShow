@@ -1,0 +1,139 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1c1c3c, #302b63, #24243e);
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2b2a4c;
+  padding: 15px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 22px;
+  color: #e879f9;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #e879f9;
+}
+
+/* Search Bar */
+.search-bar input {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #3d3b6d;
+  color: #fff;
+  width: 180px;
+  transition: 0.3s;
+}
+
+.search-bar input:focus {
+  width: 220px;
+  background: #514e85;
+}
+
+/* Logout Button */
+.logout-btn {
+  background: #a855f7;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 20px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.logout-btn:hover {
+  background: #9333ea;
+  transform: scale(1.05);
+}
+
+.profile-icon {
+  margin-left: 15px;
+  font-size: 24px;
+}
+
+/* Movies Section */
+.movies-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 15px;
+  text-align: center;
+}
+
+.movies-container h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #e879f9;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+/* Movie Cards */
+.movie-card {
+  background: #2b2a4c;
+  border-radius: 12px;
+  padding: 15px;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  background: #3c3b70;
+}
+
+.movie-card img {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.movie-card h3 {
+  margin: 12px 0 6px;
+  color: #a855f7;
+  font-size: 18px;
+}
+
+.movie-card p {
+  font-size: 14px;
+  opacity: 0.9;
+}

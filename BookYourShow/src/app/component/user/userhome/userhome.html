@@ -1,0 +1,36 @@
+<nav class="navbar">
+  <div class="logo">🎬 BookYourShow</div>
+  <ul class="nav-links">
+    <li><a routerLink="/user/home">Home</a></li>
+    <li><a href="#nowShowing">Now Showing</a></li>
+    <li><a href="#comingSoon">Upcoming</a></li>
+    <li><a href="/user/mybookings">MyBookings</a></li>
+    <li><a href="/user/profile">Profile</a></li>
+  </ul>
+  <div class="search-bar">
+    <input type="text" placeholder="🔍 Search movies..." [(ngModel)]="searchQuery" />
+  </div>
+  <button (click)="logout()" class="logout-btn">Logout</button>
+</nav>
+
+<div class="movies-container" id="nowShowing">
+  <h2>🎬 Available Movies</h2>
+  <div class="movie-list scrollable">
+    <div class="movie-card" *ngFor="let movie of filteredAvailableMovies" (click)="bookMovie(movie)">
+      <img [src]="movie.image" alt="{{ movie.name }}" />
+      <h3>{{ movie.name }}</h3>
+      <p>{{ movie.duration }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="movies-container" id="comingSoon">
+  <h2>🎥 Upcoming Movies</h2>
+  <div class="movie-list scrollable">
+    <div class="movie-card" *ngFor="let movie of filteredUpcomingMovies" (click)="bookMovie(movie)">
+      <img [src]="movie.image" alt="{{ movie.name }}" />
+      <h3>{{ movie.name }}</h3>
+      <p>{{ movie.duration }}</p>
+    </div>
+  </div>
+</div>

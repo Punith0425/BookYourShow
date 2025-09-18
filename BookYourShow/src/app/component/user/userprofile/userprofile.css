@@ -1,0 +1,132 @@
+/* Background with gradient */
+.profile-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #9333ea, #3b82f6);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Glassmorphic Card */
+.profile-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 30px;
+  width: 380px;
+  text-align: center;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.8s ease;
+}
+
+/* Avatar Section */
+.avatar-section img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  margin-bottom: 15px;
+  transition: transform 0.3s;
+}
+
+.avatar-section img:hover {
+  transform: scale(1.1);
+}
+
+.avatar-section h2 {
+  margin: 10px 0 5px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.avatar-section p {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* User Details */
+.details-section p {
+  margin: 12px 0;
+  font-size: 15px;
+}
+
+.details-section span {
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+/* Input Styling */
+.edit-section label {
+  display: block;
+  text-align: left;
+  margin: 12px 0 6px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.edit-section input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  outline: none;
+  font-size: 14px;
+}
+
+.edit-section input:focus {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Buttons */
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.edit-btn {
+  background: #3b82f6;
+  color: #fff;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.save-btn {
+  background: #22c55e;
+  color: #fff;
+}
+
+.cancel-btn {
+  background: #ef4444;
+  color: #fff;
+  margin-left: 10px;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,25 @@
+<app-admin-navbar></app-admin-navbar>
+
+<div class="page-container">
+  <h2>👥 User Management</h2>
+
+  <div class="list-card">
+    <h3>Registered Users</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td><button class="delete" (click)="deleteUser(user.id)">❌</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

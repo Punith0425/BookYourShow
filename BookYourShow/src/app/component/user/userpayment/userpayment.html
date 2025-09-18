@@ -1,0 +1,49 @@
+<div class="payment-container">
+  <h2>💳 Payment Page</h2>
+
+  <!-- Movie Details -->
+  <div class="movie-details">
+    <img [src]="movie.image" alt="{{ movie.name }}" />
+    <div>
+      <h3>{{ movie.name }}</h3>
+      <p>🗓️ Date: {{ selectedDate }}</p>
+      <p>⏰ Time: {{ selectedTime }}</p>
+      <p>🎟️ Seats: {{ selectedSeats.join(', ') }}</p>
+      <p>🕒 Duration: {{ movie.duration }}</p>
+      <p>🏢 Theater: {{ selectedTheater }}
+    </div>
+  </div>
+
+  <p class="total-amount">Total Amount: <strong>₹{{ amount }}</strong></p>
+
+  <!-- Payment Method -->
+  <div class="form-group">
+    <label>Select Payment Method:</label>
+    <select [(ngModel)]="paymentMethod">
+      <option value="">-- Choose Payment Method --</option>
+      <option value="upi">UPI</option>
+      <option value="card">Credit/Debit Card</option>
+    </select>
+  </div>
+
+  <!-- UPI Payment -->
+  <div *ngIf="paymentMethod === 'upi'" class="upi-section">
+    <label>Enter UPI ID:</label>
+    <input type="text" [(ngModel)]="upiId" placeholder="example@upi" />
+    <small>⚡ You will be redirected to Google Pay / PhonePe.</small>
+  </div>
+
+  <!-- Card Payment -->
+  <div *ngIf="paymentMethod === 'card'" class="card-section">
+    <label>Card Number:</label>
+    <input type="text" maxlength="16" [(ngModel)]="cardNumber" placeholder="1234 5678 9012 3456" />
+
+    <label>Expiry Date:</label>
+    <input type="text" maxlength="5" [(ngModel)]="expiry" placeholder="MM/YY" />
+
+    <label>CVV:</label>
+    <input type="password" maxlength="3" [(ngModel)]="cvv" placeholder="123" />
+  </div>
+
+  <button class="pay-btn" (click)="payNow()">Pay Now</button>
+</div>

@@ -1,0 +1,34 @@
+<app-admin-navbar></app-admin-navbar>
+
+<div class="page-container">
+  <h2>🏢 Theater Management</h2>
+
+  <!-- Add New Theater -->
+  <div class="form-card">
+    <h3>Add Theater</h3>
+    <input [(ngModel)]="newTheater.name" placeholder="Theater Name" />
+    <input [(ngModel)]="newTheater.location" placeholder="Location" />
+    <button (click)="addTheater()">➕ Add</button>
+  </div>
+
+  <!-- Theater List -->
+  <div class="list-card">
+    <h3>All Theaters</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let theater of theaters">
+          <td>{{ theater.name }}</td>
+          <td>{{ theater.location }}</td>
+          <td><button class="delete" (click)="deleteTheater(theater.id)">❌</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

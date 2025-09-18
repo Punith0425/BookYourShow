@@ -1,0 +1,29 @@
+<app-admin-navbar></app-admin-navbar>
+
+<div class="admin-container">
+  <h2>🎬 Movie Management</h2>
+
+  <!-- Add Movie Form -->
+  <div class="form-container">
+    <input type="text" [(ngModel)]="newMovie.name" placeholder="Movie Name" />
+    <input type="text" [(ngModel)]="newMovie.duration" placeholder="Duration (e.g. 2h 30m)" />
+    <input type="text" [(ngModel)]="newMovie.genre" placeholder="Genre" />
+    <input type="text" [(ngModel)]="newMovie.image" placeholder="Image URL" />
+    <textarea [(ngModel)]="newMovie.description" placeholder="Description"></textarea>
+    <button (click)="addMovie()">➕ Add Movie</button>
+  </div>
+
+  <!-- Movie List -->
+  <div class="movie-grid">
+    <div class="movie-card" *ngFor="let movie of movies">
+      <img [src]="movie.image" alt="{{ movie.name }}" />
+      <div class="movie-info">
+        <h3>{{ movie.name }}</h3>
+        <p><strong>Duration:</strong> {{ movie.duration }}</p>
+        <p><strong>Genre:</strong> {{ movie.genre }}</p>
+        <p><strong>Description:</strong> {{ movie.description }}</p>
+      </div>
+      <button class="delete-btn" (click)="deleteMovie(movie.id)">🗑 Delete</button>
+    </div>
+  </div>
+</div>

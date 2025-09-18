@@ -1,0 +1,72 @@
+<div class="register-container">
+  <div class="register-card animate">
+    <h2 class="title">📝 Create Your Account</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- Username -->
+      <div class="input-group">
+        <input
+          type="text"
+          placeholder="Enter Username"
+          formControlName="username"
+          [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"
+        />
+        <div *ngIf="submitted && f['username'].errors" class="error">
+          <span *ngIf="f['username'].errors['required']">Username is required</span>
+          <span *ngIf="f['username'].errors['minlength']">Minimum 3 characters</span>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="input-group">
+        <input
+          type="email"
+          placeholder="Enter Email"
+          formControlName="email"
+          [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+        />
+        <div *ngIf="submitted && f['email'].errors" class="error">
+          <span *ngIf="f['email'].errors['required']">Email is required</span>
+          <span *ngIf="f['email'].errors['email']">Enter a valid email</span>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="input-group">
+        <input
+          type="password"
+          placeholder="Enter Password"
+          formControlName="password"
+          [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+        />
+        <div *ngIf="submitted && f['password'].errors" class="error">
+          <span *ngIf="f['password'].errors['required']">Password is required</span>
+          <span *ngIf="f['password'].errors['minlength']">Minimum 6 characters</span>
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="input-group">
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          formControlName="confirmPassword"
+          [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }"
+        />
+        <div *ngIf="submitted && f['confirmPassword'].errors" class="error">
+          <span *ngIf="f['confirmPassword'].errors['required']">Confirm your password</span>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="register-btn">Register</button>
+
+      <!-- Redirect to Login -->
+        <div>
+            <label class="login-link">
+                Already have an account? <a href="./admin/login">Login here</a>
+            </label>
+        </div>
+    </form>
+  </div>
+</div>
