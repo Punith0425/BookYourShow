@@ -4,66 +4,66 @@ import com.example.springapp.model.Payment;
 import com.example.springapp.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PaymentService {
 
-    private final PaymentRepository paymentRepository;
-
     @Autowired
-    public PaymentService(PaymentRepository paymentRepository) {
-        this.paymentRepository = paymentRepository;
-    }
+    private PaymentRepository paymentRepository;
 
-    /**
-     * ✅ Get all payments
-     */
     public List<Payment> getAllPayments() {
         return paymentRepository.findAll();
     }
 
-    /**
-     * ✅ Get payment by ID
-     */
     public Optional<Payment> getPaymentById(Long id) {
         return paymentRepository.findById(id);
     }
 
-    /**
-     * ✅ Create new payment
-     */
     public Payment createPayment(Payment payment) {
-        payment.setPaymentTime(LocalDateTime.now());
+        payment.setPaymentDate(LocalDateTime.now());
+        payment.setTransactionId(generateTransactionId());
         return paymentRepository.save(payment);
     }
 
-    /**
-     * ✅ Update existing payment
-     */
-    public Payment updatePayment(Payment payment) {
-        return paymentRepository.save(payment);
+    public Payment updatePaymentStatus(Long id, Payment.PaymentStatus status) {
+        Optional<Payment> paymentOptional = paymentRepository.findById(id);
+        if (paymentOptional.isPresent()) {
+            Payment payment = paymentOptional.get();
+            payment.setStatus(status);
+            return paymentRepository.save(payment);
+        }
+        return null;
     }
 
-    // ✅ JPQL: Get payment by booking ID
-    public Payment getPaymentByBookingId(Long bookingId) {
+    public boolean deletePayment(Long id) {
+        if (paymentRepository.existsById(id)) {
+            paymentRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    public List<Payment> getPaymentsByUserId(Long userId) {
+        return paymentRepository.findByUserId(userId);
+    }
+
+    public List<Payment> getPaymentsByBookingId(Long bookingId) {
         return paymentRepository.findByBookingId(bookingId);
     }
 
-    // ✅ JPQL: Get all successful payments
-    public List<Payment> getAllSuccessfulPayments() {
-        return paymentRepository.findAllSuccessfulPayments();
+    public Payment getPaymentByTransactionId(String transactionId) {
+        return paymentRepository.findByTransactionId(transactionId);
     }
 
-    /**
-     * ✅ Delete payment by ID
-     */
-    public void deletePayment(Long id) {
-        paymentRepository.deleteById(id);
+    public List<Payment> getSuccessfulPaymentsByUserId(Long userId) {
+        return paymentRepository.findSuccessfulPaymentsByUserId(userId);
     }
 
-    
+    private String generateTransactionId() {
+        return "TXN" + UUID.randomUUID().toString().replace("-", "").substring(0, 12).toUpperCase();
+    }
 }

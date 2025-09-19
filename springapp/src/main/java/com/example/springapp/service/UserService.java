@@ -3,59 +3,80 @@ package com.example.springapp.service;
 import com.example.springapp.model.User;
 import com.example.springapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
-
 import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-
-import java.util.*;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
-
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
 
-    // 🔹 Get all users
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    // 🔹 Get user by ID
+    // 🔹 Paginated and sorted users
+    public Page<User> getAllUsers(int page, int size, String sortBy, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase("desc") 
+            ? Sort.by(sortBy).descending() 
+            : Sort.by(sortBy).ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return userRepository.findAll(pageable);
+    }
+
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
 
-    // 🔹 Get user by email (JPQL query)
-    public User getUserByEmail(String email) {
+    public Optional<User> getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    // 🔹 Create new user
     public User createUser(User user) {
         return userRepository.save(user);
     }
 
-    // 🔹 Update existing user
-    public User updateUser(User user) {
-        return userRepository.save(user);
+    public User updateUser(Long id, User userDetails) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setName(userDetails.getName());
+            user.setEmail(userDetails.getEmail());
+            user.setPassword(userDetails.getPassword());
+            user.setPhone(userDetails.getPhone());
+            return userRepository.save(user);
+        }
+        return null;
     }
 
-    // 🔹 Delete user
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    public boolean deleteUser(Long id) {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
-    // ✅ Paginated & Sorted Users
-    public Page<User> getAllUsers(int page, int size, String sortBy) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-        return userRepository.findAll(pageable);
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    public Optional<User> authenticateUser(String email, String password) {
+        return userRepository.findByEmailAndPassword(email, password);
+    }
+
+    // 🔹 Search users with pagination
+    public Page<User> searchUsersByName(String name, int page, int size, String sortBy, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase("desc") 
+            ? Sort.by(sortBy).descending() 
+            : Sort.by(sortBy).ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return userRepository.findByNameContainingIgnoreCase(name, pageable);
     }
 }

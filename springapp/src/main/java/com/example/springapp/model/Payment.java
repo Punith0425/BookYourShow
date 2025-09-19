@@ -2,7 +2,6 @@ package com.example.springapp.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,24 +15,36 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_id", nullable = false)
     private Booking booking;
 
-    @Column(nullable = false)
-    private double amount;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @Column(nullable = false)
-    private String paymentMethod;  // e.g. UPI, CARD, NETBANKING
+    @Column(name = "payment_date", nullable = false)
+    private LocalDateTime paymentDate;
+
+    @Column(name = "amount", nullable = false)
+    private Double amount;
 
     @Enumerated(EnumType.STRING)
-    private PaymentStatus status = PaymentStatus.PENDING;
+    @Column(name = "payment_method", nullable = false)
+    private PaymentMethod paymentMethod;
 
-    private LocalDateTime paymentTime;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PaymentStatus status;
+
+    @Column(name = "transaction_id", unique = true)
+    private String transactionId;
+
+    public enum PaymentMethod {
+        CREDIT_CARD, DEBIT_CARD, UPI, NET_BANKING, WALLET
+    }
 
     public enum PaymentStatus {
-        PENDING,
-        SUCCESS,
-        FAILED
+        SUCCESS, FAILED, PENDING, REFUNDED
     }
 }
